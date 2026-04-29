@@ -9,38 +9,92 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OurStoryRouteImport } from './routes/our-story'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProductsChocoVanillaNutritionDrinkRouteImport } from './routes/products.choco-vanilla-nutrition-drink'
 
+const OurStoryRoute = OurStoryRouteImport.update({
+  id: '/our-story',
+  path: '/our-story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsChocoVanillaNutritionDrinkRoute =
+  ProductsChocoVanillaNutritionDrinkRouteImport.update({
+    id: '/products/choco-vanilla-nutrition-drink',
+    path: '/products/choco-vanilla-nutrition-drink',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/our-story': typeof OurStoryRoute
+  '/products/choco-vanilla-nutrition-drink': typeof ProductsChocoVanillaNutritionDrinkRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/our-story': typeof OurStoryRoute
+  '/products/choco-vanilla-nutrition-drink': typeof ProductsChocoVanillaNutritionDrinkRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/our-story': typeof OurStoryRoute
+  '/products/choco-vanilla-nutrition-drink': typeof ProductsChocoVanillaNutritionDrinkRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/blog'
+    | '/our-story'
+    | '/products/choco-vanilla-nutrition-drink'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/blog' | '/our-story' | '/products/choco-vanilla-nutrition-drink'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/our-story'
+    | '/products/choco-vanilla-nutrition-drink'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BlogRoute: typeof BlogRoute
+  OurStoryRoute: typeof OurStoryRoute
+  ProductsChocoVanillaNutritionDrinkRoute: typeof ProductsChocoVanillaNutritionDrinkRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/our-story': {
+      id: '/our-story'
+      path: '/our-story'
+      fullPath: '/our-story'
+      preLoaderRoute: typeof OurStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +102,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/choco-vanilla-nutrition-drink': {
+      id: '/products/choco-vanilla-nutrition-drink'
+      path: '/products/choco-vanilla-nutrition-drink'
+      fullPath: '/products/choco-vanilla-nutrition-drink'
+      preLoaderRoute: typeof ProductsChocoVanillaNutritionDrinkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BlogRoute: BlogRoute,
+  OurStoryRoute: OurStoryRoute,
+  ProductsChocoVanillaNutritionDrinkRoute:
+    ProductsChocoVanillaNutritionDrinkRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
