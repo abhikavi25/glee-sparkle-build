@@ -1,24 +1,24 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-
 import appCss from "../styles.css?url";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { CartProvider } from "@/components/cart/CartProvider";
+import { CartDrawer } from "@/components/cart/CartDrawer";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-[70vh] items-center justify-center bg-glee-cream px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
+        <h1 className="font-display text-7xl text-glee-choco">404</h1>
+        <h2 className="mt-3 font-sub text-xl font-bold text-glee-choco">This page got picky and disappeared</h2>
+        <p className="mt-2 text-sm text-glee-muted">Let's get you back to the good stuff.</p>
+        <Link
+          to="/"
+          className="mt-6 inline-flex items-center justify-center rounded-full bg-glee-coral px-6 py-3 font-sub font-extrabold text-white"
+        >
+          Take me home
+        </Link>
       </div>
     </div>
   );
@@ -29,19 +29,22 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Glee Kids by GleeNutrico — Millet Nutrition Drink for Kids 3–16 | India" },
+      { name: "description", content: "India's millet-powered kids nutrition drink. Zero refined sugar, zero maltodextrin, no preservatives. Choco Vanilla flavour kids love." },
+      { name: "author", content: "GleeNutrico" },
+      { property: "og:title", content: "Glee Kids — No Sugar. No Junk. Just Pure Glee." },
+      { property: "og:description", content: "Millet-based nutrition drink for kids 3–16. Real chocolate, real vanilla, zero refined sugar, zero maltodextrin." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@GleeNutrico" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&family=DM+Sans:wght@400;500;600&family=Caveat:wght@600;700&display=swap",
       },
     ],
   }),
@@ -65,5 +68,17 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <CartProvider>
+      <div className="flex min-h-screen flex-col bg-glee-cream">
+        <Header />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+      <CartDrawer />
+      <Toaster richColors position="top-center" />
+    </CartProvider>
+  );
 }
