@@ -323,39 +323,57 @@ function Home() {
         </div>
       </section>
 
-      {/* GLEE DEAL banner */}
+      {/* GLEE DEAL banner — Bundle tiles */}
       <section id="glee-deal" className="relative overflow-hidden py-20" style={{ background: "linear-gradient(135deg, #FFD93D 0%, #F5E6C3 100%)" }}>
         <div className="absolute inset-0 bg-confetti-dots opacity-60" aria-hidden />
         <div className="relative mx-auto max-w-5xl px-6 text-center md:px-8">
-          <h2 className="font-display text-4xl text-glee-choco md:text-6xl">
-            More Glee, More Savings. <span aria-hidden>💛</span>
+          <span className="font-hand text-2xl text-glee-coral">3 out of 4 parents start with the 2-pack</span>
+          <h2 className="mt-1 font-display text-4xl text-glee-choco md:text-6xl">
+            Pick Your Glee Bundle <span aria-hidden>💛</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl font-sub text-lg font-bold text-glee-choco/80">
-            Stack up and unlock your special discount:
+            Code <span className="font-hand text-xl text-glee-coral">WITHLOVE</span> is auto-applied. The more you stack, the more you save.
           </p>
-          <div className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
-            <div className="rounded-3xl border-2 border-glee-choco/10 bg-white/80 p-6 backdrop-blur">
-              <div className="font-display text-6xl text-glee-coral">2️⃣</div>
-              <div className="mt-2 font-sub font-extrabold text-glee-choco">Buy 2 packs</div>
-              <div className="text-sm text-glee-muted">Apply code <span className="font-hand text-base text-glee-coral">WithLove</span></div>
-              <div className="mt-1 font-display text-2xl text-glee-green-deep">Save ₹100 extra</div>
-            </div>
-            <div className="rounded-3xl border-2 border-glee-choco/10 bg-white/80 p-6 backdrop-blur">
-              <div className="font-display text-6xl text-glee-coral">3️⃣</div>
-              <div className="mt-2 font-sub font-extrabold text-glee-choco">Buy 3 packs</div>
-              <div className="text-sm text-glee-muted">Apply code <span className="font-hand text-base text-glee-coral">WithLove</span></div>
-              <div className="mt-1 font-display text-2xl text-glee-green-deep">Save ₹200 extra</div>
-            </div>
+
+          <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-3">
+            {[
+              { qty: 1, total: 549, save: 50, label: "Try It", per: 34, tag: null },
+              { qty: 2, total: 998, save: 200, label: "Most Loved", per: 31, tag: "POPULAR", popular: true },
+              { qty: 3, total: 1447, save: 350, label: "Best Value", per: 30, tag: "SAVE ₹350", best: true },
+            ].map((b) => (
+              <Link
+                key={b.qty}
+                to="/products/choco-vanilla-nutrition-drink"
+                search={{ qty: b.qty }}
+                className={`group relative block rounded-3xl border-2 bg-white p-6 text-left transition-transform hover:-translate-y-1 ${b.popular ? "border-glee-coral shadow-[0_20px_50px_-20px_rgba(255,107,107,0.5)] md:scale-[1.05]" : b.best ? "border-glee-green-deep" : "border-glee-choco/10"}`}
+              >
+                {b.tag && (
+                  <span className={`absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white ${b.popular ? "bg-glee-coral" : "bg-glee-green-deep"}`}>
+                    {b.tag}
+                  </span>
+                )}
+                <div className="font-hand text-xl text-glee-coral">{b.label}</div>
+                <div className="mt-1 font-display text-5xl text-glee-choco">{b.qty}<span className="font-sub text-base font-extrabold text-glee-muted"> Pack{b.qty > 1 ? "s" : ""}</span></div>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <span className="font-display text-3xl text-glee-choco">₹{b.total}</span>
+                  <span className="font-sub text-sm text-glee-muted line-through">₹{599 * b.qty}</span>
+                </div>
+                <div className="mt-1 font-sub text-sm font-extrabold text-glee-green-deep">
+                  ₹{b.per}/glass · {b.qty * 16} glasses
+                </div>
+                <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-glee-coral/10 px-3 py-1 font-sub text-xs font-extrabold text-glee-coral">
+                  SAVE ₹{b.save}
+                </div>
+                <div className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-glee-choco px-4 py-2.5 font-sub text-sm font-extrabold text-glee-cream transition group-hover:bg-glee-coral">
+                  Grab This Bundle <ArrowRight className="h-4 w-4" />
+                </div>
+              </Link>
+            ))}
           </div>
-          <p className="mt-6 font-sub font-bold text-glee-choco/80">
-            Plus ₹50 off on every prepaid order.
+
+          <p className="mt-8 font-sub text-sm font-bold text-glee-choco/70">
+            🔒 Secure checkout · 🚚 Free shipping ₹499+ · ↩️ Kid hates it? Full refund.
           </p>
-          <Link
-            to="/products/choco-vanilla-nutrition-drink"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-glee-coral px-8 py-4 font-sub text-base font-extrabold text-white shadow-[0_14px_34px_-12px_rgba(255,107,107,0.7)] transition-transform hover:scale-[1.04]"
-          >
-            Shop the Bundle <ArrowRight className="h-4 w-4" />
-          </Link>
         </div>
       </section>
 
