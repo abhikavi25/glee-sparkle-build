@@ -19,7 +19,7 @@ type Action =
   | { type: "set-coupon"; coupon: string }
   | { type: "reset" };
 
-const initial: CartState = { qty: 1, method: "prepaid", coupon: "" };
+const initial: CartState = { qty: 2, method: "prepaid", coupon: "WITHLOVE" };
 
 function reducer(state: CartState, action: Action): CartState {
   switch (action.type) {
