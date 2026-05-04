@@ -4,11 +4,13 @@ import { Check } from "lucide-react";
 
 const SERVINGS_PER_PACK = 16;
 
-const tiles = [
+type Tile = { qty: number; label: string; tag: string; emoji: string; popular?: boolean; best?: boolean };
+
+const tiles: Tile[] = [
   { qty: 1, label: "1 Pack", tag: "Trial size", emoji: "🥛" },
   { qty: 2, label: "2 Packs", tag: "MOST PARENTS PICK THIS", emoji: "💛", popular: true },
   { qty: 3, label: "3 Packs", tag: "BEST VALUE", emoji: "🏆", best: true },
-] as const;
+];
 
 export function BundlePicker() {
   const { state, setQty, setMethod, setCoupon } = useCart();
