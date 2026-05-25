@@ -175,7 +175,7 @@ function Home() {
           <div className="grid gap-8 md:grid-cols-2">
             {/* Comparison */}
             <div className="overflow-hidden rounded-3xl border border-glee-vanilla bg-white shadow-[0_20px_60px_-30px_rgba(42,26,14,0.3)]">
-              <div className="bg-glee-choco px-6 py-4">
+              <div className="bg-gradient-to-r from-glee-green-deep to-glee-blue-deep px-6 py-4">
                 <div className="grid grid-cols-2 gap-4 font-sub text-sm font-extrabold text-glee-cream">
                   <span>What most brands hide 😬</span>
                   <span>What Glee says no to ✅</span>
