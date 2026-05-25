@@ -162,7 +162,8 @@ function Home() {
 
 
       {/* WHY GLEE - story + comparison */}
-      <section className="bg-glee-cream py-20">
+      <section className="bg-gradient-to-b from-glee-cream via-glee-green/5 to-glee-cream py-20">
+
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <div className="mb-12 max-w-3xl">
             <span className="font-hand text-2xl text-glee-coral">Real talk:</span>
