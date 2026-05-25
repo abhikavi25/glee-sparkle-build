@@ -232,7 +232,8 @@ function Home() {
       </section>
 
       {/* PRODUCT SPOTLIGHT */}
-      <section className="bg-glee-vanilla/40 py-20">
+      <section className="bg-gradient-to-br from-glee-blue/10 via-glee-cream to-glee-green/10 py-20">
+
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <h2 className="text-center font-display text-4xl text-glee-choco md:text-5xl">
             Meet Your New Favourite. <span aria-hidden>🍫✨</span>
