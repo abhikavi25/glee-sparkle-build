@@ -1,62 +1,54 @@
 ## Goal
-Subtly push parents toward the 2–3 pack prepaid bundle using anchoring, defaults, and real-time savings feedback. Punchy D2C tone — bold callouts, sticky bars, no fake countdowns.
+Make the hero feel like a top 1% D2C site — playful but composed, not clumsy. Fix three specific problems the user called out and layer in subtle "immersive" craft.
 
-## Pricing logic (no business changes)
-Existing pricing already supports it:
-- Prepaid saves ₹50/unit
-- WithLove: ₹100 off (qty 2), ₹200 off (qty 3+), prepaid only
-- Free shipping ≥ ₹499 prepaid
+## Problems to fix
 
-We use these existing rules — no new math.
+1. **Floating black/yellow dot lands ON the headline.** The `FloatingIcons` component scatters SVGs at fixed % coords (e.g. sunshine dot at `top: 6% / left: 42%`, coral sparkle at `top: 40% / right: 20%`) which collide with the H1 text on this viewport. Reads as clutter, not whimsy.
+2. **CTA row looks clumsy.** "Grab Yours — ₹549" (filled coral) sitting next to "Save ₹50 with Prepaid ↓" (outlined choco) competes for attention — two equally-loud buttons, conflicting shapes, no hierarchy. The "↓" anchor link also points to an old `#glee-deal` section that no longer exists post-refactor.
+3. **No immersive layering.** Hero is one flat plane: text left, product right, dots floating. Lacks depth, parallax, or any reward for hovering/scrolling.
 
-## Changes
+## Plan
 
-### 1. Cart defaults (subtle nudge #1)
-`src/components/cart/CartProvider.tsx`
-- Change initial state: `qty: 2`, `method: "prepaid"`, `coupon: "WITHLOVE"` auto-applied.
-- Result: every visitor lands pre-loaded into the ₹100-off bundle. The price they first see IS the discounted price. Removing items feels like *losing* savings (loss aversion).
+### 1. Re-stage the floating elements (`FloatingIcons.tsx`)
+- Move all icons to a **safe zone**: only along the outer 12% margins (top-edge corners, bottom edge, far left/right). Nothing crosses into the central column where the H1 / product image live.
+- Reduce count from 7 → 5 (less = more premium).
+- Soften: lower opacity to ~50%, slightly smaller, slower float (6–8s).
+- Add a subtle **parallax on mouse-move** (translate by 8–15px based on cursor) so the layer feels alive, not pasted on. Disabled on touch / `prefers-reduced-motion`.
 
-### 2. New `BundlePicker` component (Product page, replaces plain qty stepper)
-`src/components/product/BundlePicker.tsx`
-- 3 visual tiles: **1 Pack**, **2 Packs (POPULAR)**, **3 Packs (BEST VALUE)**.
-- 2-pack tile is visually larger, bordered in coral, with "Most parents pick this" sticker.
-- 3-pack tile shows strike-through total + "Save ₹350" badge.
-- Each tile shows **per-glass cost** (₹/serving) — anchors value to a tiny number (~₹27/glass).
-- Clicking a tile sets qty + auto-applies WithLove + sets prepaid.
+### 2. Restructure the CTA cluster (`routes/index.tsx` hero)
+Replace the two-button row with a **primary CTA + supporting microcopy stack**:
 
-### 3. Live savings counter (subtle nudge #2)
-`src/components/product/PriceBlock.tsx` (edit existing)
-- Big animated number: **"You're saving ₹X"** with a coral pulse when value increases.
-- Line below: **"That's ₹Y per glass"** updating live.
-- When user is 1 pack away from next tier: yellow strip *"Add 1 more pack → unlock ₹100 more off"* (uses existing `couponMessage` logic).
+```text
+[ Grab Yours — From ₹549 → ]      ← single hero CTA, coral, shimmer
+  ✓ Free shipping ₹499+   ✓ 100% refund if kid hates it
+        ⭐ 4.9 · 3,000+ parents trust Glee
+```
 
-### 4. AddToCartBar upgrades
-`src/components/product/AddToCartBar.tsx` (edit)
-- CTA copy becomes dynamic: *"Lock in ₹X off — Buy 2 Packs"*.
-- Below CTA: 3 micro-trust chips in a row — *"🔒 Secure Checkout · 🚚 Ships in 24h · ↩️ 100% Refund if kid hates it"*.
-- Mobile: make this bar `sticky bottom-0` with backdrop blur (punchy D2C standard).
+- Drop the outlined "Save ₹50" button entirely — that nudge already lives on the product page (the "Save ₹50 with prepaid" toggle).
+- Replace with **three tiny inline trust chips** under the CTA (free shipping, refund, rating) — quieter, builds confidence without competing visually.
+- Remove the dead `#glee-deal` anchor.
 
-### 5. Home page bundle teaser (subtle nudge #3)
-`src/routes/index.tsx` — add new section above footer:
-- "Pick Your Glee Bundle" — same 3 tiles as product page, but smaller.
-- Each tile is a `<Link>` that navigates to product page with the qty pre-selected (via search params, e.g. `?qty=3`).
-- Headline: *"3 out of 4 parents start with the 2-pack"*.
+### 3. Tighten the headline rhythm
+- Current H1 stacks "No Sugar. / No Junk. / Just Pure Glee. 🌾" with the emoji on the same line — looks unbalanced.
+- Move 🌾 emoji to a small floating sticker beside the headline (rotated, on a sunshine chip) — feels intentional, not tacked on.
+- Reduce H1 size slightly on this viewport (md:text-7xl → md:text-6xl) so it breathes against the product image.
 
-### 6. URL param handoff
-`src/routes/products.choco-vanilla-nutrition-drink.tsx`
-- Read `?qty=` on mount, call `setQty()` if 1–3.
-- Lets the home tiles "carry intent" into the product page seamlessly.
+### 4. Add immersive depth (subtle, premium)
+- **Product image**: add a soft mouse-tracked tilt (max 6° rotateY/rotateX) using CSS only — feels tactile, no library needed.
+- **Vanilla blob behind product**: animate it with a slow scale pulse (4s ease-in-out) so the backdrop breathes.
+- **Hand-written stickers** ("No junk. Seriously." / "⭐ 4.9 from 127 parents") — currently `hidden md:block` and static. Add a gentle bob with staggered delays so they feel placed by hand.
+- **Scroll-cue**: tiny animated chevron + "scroll to meet the millet" hand-script at the bottom of the hero — invites exploration.
 
-### 7. Punchy savings strip (Header)
-`src/components/layout/Header.tsx` (edit)
-- Existing announcement bar gets sharper copy: *"FLAT ₹200 OFF on 3-packs · Code WITHLOVE auto-applied ✨"*.
+### 5. Trust ticker polish
+- Add fade-mask gradients on the left/right edges so items dissolve instead of hard-clipping.
+- Slow it down (30s → 45s) — calmer, more premium.
 
-## Tone guardrails
-- Bold weights, coral accents, savings numbers prominent — but no fake countdown timers, no "only 3 left" lies, no exit popups. Punchy ≠ scammy.
+## Files to edit
+- `src/components/brand/FloatingIcons.tsx` — reposition to margins, add parallax, reduce count
+- `src/routes/index.tsx` — restructure hero CTA cluster, headline, scroll cue, ticker mask
+- `src/styles.css` — add `breathe` keyframe + edge-fade utility if needed
 
-## Files
-- edit: `src/components/cart/CartProvider.tsx`, `src/components/product/PriceBlock.tsx`, `src/components/product/AddToCartBar.tsx`, `src/routes/index.tsx`, `src/routes/products.choco-vanilla-nutrition-drink.tsx`, `src/components/layout/Header.tsx`
-- create: `src/components/product/BundlePicker.tsx`
-
-## Out of scope (saving for later rounds)
-- Risk-reversal kid-quote sticker, social proof ticker, fussy-eater quiz, authority strip — can layer in next pass.
+## Out of scope
+- Product page changes
+- Mascot section / Our Story (already polished last round)
+- Adding new images

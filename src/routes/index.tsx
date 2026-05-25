@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Star, Check, X, ArrowRight, Sparkles } from "lucide-react";
+import { Star, Check, X, ArrowRight, Sparkles, ChevronDown, Shield, Truck } from "lucide-react";
 import { Badge } from "@/components/brand/Badge";
 import { FloatingIcons } from "@/components/brand/FloatingIcons";
 import { product, reviews } from "@/lib/productData";
@@ -27,44 +28,77 @@ const trustItems = [
 ];
 
 function Home() {
+  const productWrapRef = useRef<HTMLDivElement>(null);
+
+  const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = productWrapRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    el.style.setProperty("--rx", `${(-y * 6).toFixed(2)}deg`);
+    el.style.setProperty("--ry", `${(x * 6).toFixed(2)}deg`);
+  };
+  const resetTilt = () => {
+    const el = productWrapRef.current;
+    if (!el) return;
+    el.style.setProperty("--rx", "0deg");
+    el.style.setProperty("--ry", "0deg");
+  };
+
   return (
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-glee-cream bg-confetti-dots">
         <FloatingIcons />
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 py-16 md:grid-cols-2 md:px-8 md:py-24">
-          <div className="space-y-6">
+          <div className="relative space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-glee-green/30 bg-white px-3 py-1 font-hand text-base text-glee-green-deep">
               <Sparkles className="h-4 w-4" /> Millet-powered, kid-approved
             </span>
-            <h1 className="font-display text-5xl leading-[0.95] text-glee-choco md:text-7xl">
+            <h1 className="font-display text-5xl leading-[0.95] text-glee-choco md:text-6xl">
               No Sugar. <br />
               No Junk. <br />
-              <span className="text-glee-green-deep">Just Pure Glee.</span>{" "}
-              <span aria-hidden>🌾</span>
+              <span className="text-glee-green-deep">Just Pure Glee.</span>
             </h1>
+            {/* floating wheat sticker — placed, not pasted */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -top-2 right-2 hidden md:inline-flex h-12 w-12 items-center justify-center rounded-full bg-glee-sunshine text-2xl shadow-lg rotate-[10deg] animate-bob-slow"
+            >
+              🌾
+            </span>
             <p className="max-w-lg text-lg text-glee-muted md:text-xl">
               India's millet-powered nutrition drink for kids aged 3–16.
               Zero refined sugar. Zero maltodextrin. Zero guilt.
               Just the good stuff — and flavours kids actually beg for.
             </p>
-            <div className="flex flex-wrap items-center gap-3">
+
+            {/* CTA cluster: one hero button + quiet trust microcopy */}
+            <div className="space-y-3 pt-1">
               <Link
                 to="/products/choco-vanilla-nutrition-drink"
-                className="relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-glee-coral px-7 py-4 font-sub text-base font-extrabold text-white shadow-[0_14px_34px_-12px_rgba(255,107,107,0.7)] transition-transform hover:scale-[1.04]"
+                className="relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-glee-coral px-8 py-4 font-sub text-base font-extrabold text-white shadow-[0_14px_34px_-12px_rgba(255,107,107,0.7)] transition-transform hover:scale-[1.04]"
               >
                 <span className="relative z-10 inline-flex items-center gap-2">
-                  Grab Yours — ₹549 <ArrowRight className="h-4 w-4" />
+                  Grab Yours — From ₹549 <ArrowRight className="h-4 w-4" />
                 </span>
                 <span className="shimmer-cta absolute inset-0" aria-hidden />
               </Link>
-              <a
-                href="#glee-deal"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-glee-choco px-6 py-3.5 font-sub font-extrabold text-glee-choco transition hover:bg-glee-choco hover:text-glee-cream"
-              >
-                Save ₹50 with Prepaid ↓
-              </a>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 font-sub text-xs font-bold text-glee-muted">
+                <span className="inline-flex items-center gap-1.5">
+                  <Truck className="h-3.5 w-3.5 text-glee-green-deep" /> Free shipping ₹499+
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Shield className="h-3.5 w-3.5 text-glee-green-deep" /> 100% refund if kid hates it
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Star className="h-3.5 w-3.5 fill-glee-sunshine text-glee-sunshine" />
+                  4.9 · 3,000+ parents
+                </span>
+              </div>
             </div>
+
             <div className="flex flex-wrap gap-2 pt-2">
               <Badge tone="green" icon="🌾">Millet-Powered</Badge>
               <Badge tone="coral" icon="🚫">No Sugar</Badge>
@@ -74,9 +108,17 @@ function Home() {
           </div>
 
           {/* Hero product */}
-          <div className="relative">
-            <div className="absolute inset-0 -z-10 mx-auto h-[88%] w-[88%] rounded-full bg-glee-vanilla blur-2xl opacity-70" />
-            <div className="relative mx-auto max-w-md">
+          <div
+            ref={productWrapRef}
+            onMouseMove={handleTilt}
+            onMouseLeave={resetTilt}
+            className="relative [perspective:1200px]"
+          >
+            <div className="absolute inset-0 -z-10 mx-auto h-[88%] w-[88%] rounded-full bg-glee-vanilla blur-2xl opacity-70 animate-breathe" />
+            <div
+              className="relative mx-auto max-w-md transition-transform duration-200 ease-out will-change-transform"
+              style={{ transform: "rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))" }}
+            >
               <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-br from-glee-blue/30 via-glee-green/20 to-glee-sunshine/30 blur-2xl" />
               <img
                 src={product.image}
@@ -86,12 +128,12 @@ function Home() {
                 className="relative animate-float drop-shadow-[0_30px_50px_rgba(42,26,14,0.25)]"
               />
             </div>
-            <div className="absolute -left-2 top-6 hidden md:block">
+            <div className="absolute -left-2 top-6 hidden md:block animate-bob-slow" style={{ animationDelay: "0.4s" }}>
               <span className="rounded-full bg-glee-sunshine px-4 py-2 font-hand text-2xl text-glee-choco shadow-lg rotate-[-8deg] inline-block">
                 No junk. Seriously.
               </span>
             </div>
-            <div className="absolute -right-2 bottom-8 hidden md:block">
+            <div className="absolute -right-2 bottom-8 hidden md:block animate-bob-slow" style={{ animationDelay: "1.1s" }}>
               <span className="rounded-full bg-white px-4 py-2 font-sub text-sm font-extrabold text-glee-green-deep shadow-lg rotate-[6deg] inline-block">
                 ⭐ 4.9 from 127 parents
               </span>
@@ -99,9 +141,15 @@ function Home() {
           </div>
         </div>
 
+        {/* Scroll cue */}
+        <div className="relative flex flex-col items-center pb-6 -mt-4">
+          <span className="font-hand text-xl text-glee-muted">scroll to meet the millet</span>
+          <ChevronDown className="h-5 w-5 text-glee-green-deep animate-bounce-soft" />
+        </div>
+
         {/* Trust ticker */}
-        <div className="relative border-y border-glee-vanilla bg-white/60 py-3 overflow-hidden">
-          <div className="flex animate-marquee gap-10 whitespace-nowrap">
+        <div className="relative border-y border-glee-vanilla bg-white/60 py-3 overflow-hidden marquee-fade">
+          <div className="flex gap-10 whitespace-nowrap" style={{ animation: "marquee 45s linear infinite" }}>
             {[...trustItems, ...trustItems].map((t, i) => (
               <span key={i} className="inline-flex items-center gap-2 font-sub text-sm font-bold text-glee-choco">
                 {t}
@@ -111,6 +159,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
       {/* WHY GLEE - story + comparison */}
       <section className="bg-glee-cream py-20">
