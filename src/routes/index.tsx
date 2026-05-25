@@ -162,7 +162,8 @@ function Home() {
 
 
       {/* WHY GLEE - story + comparison */}
-      <section className="bg-glee-cream py-20">
+      <section className="bg-gradient-to-b from-glee-cream via-glee-green/5 to-glee-cream py-20">
+
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <div className="mb-12 max-w-3xl">
             <span className="font-hand text-2xl text-glee-coral">Real talk:</span>
@@ -174,7 +175,7 @@ function Home() {
           <div className="grid gap-8 md:grid-cols-2">
             {/* Comparison */}
             <div className="overflow-hidden rounded-3xl border border-glee-vanilla bg-white shadow-[0_20px_60px_-30px_rgba(42,26,14,0.3)]">
-              <div className="bg-glee-choco px-6 py-4">
+              <div className="bg-gradient-to-r from-glee-green-deep to-glee-blue-deep px-6 py-4">
                 <div className="grid grid-cols-2 gap-4 font-sub text-sm font-extrabold text-glee-cream">
                   <span>What most brands hide 😬</span>
                   <span>What Glee says no to ✅</span>
@@ -231,7 +232,8 @@ function Home() {
       </section>
 
       {/* PRODUCT SPOTLIGHT */}
-      <section className="bg-glee-vanilla/40 py-20">
+      <section className="bg-gradient-to-br from-glee-blue/10 via-glee-cream to-glee-green/10 py-20">
+
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <h2 className="text-center font-display text-4xl text-glee-choco md:text-5xl">
             Meet Your New Favourite. <span aria-hidden>🍫✨</span>
@@ -308,7 +310,9 @@ function Home() {
       </section>
 
       {/* GLEE DIFFERENCE */}
-      <section className="bg-glee-cream py-20">
+      <section className="relative bg-glee-cream py-20">
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-glee-green/40 to-transparent" />
+
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <h2 className="text-center font-display text-4xl text-glee-choco md:text-5xl">
             Nutrition That's Built Different <span aria-hidden>💪</span>
@@ -350,7 +354,8 @@ function Home() {
       </section>
 
       {/* REVIEWS */}
-      <section className="bg-glee-vanilla/40 py-20">
+      <section className="bg-gradient-to-br from-glee-green/8 via-glee-cream to-glee-blue/10 py-20">
+
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <h2 className="text-center font-display text-4xl text-glee-choco md:text-5xl">
             Don't Take Our Word for It <span aria-hidden>💬</span>
