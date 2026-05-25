@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Star, Check, X, ArrowRight, Sparkles } from "lucide-react";
+import { Star, Check, X, ArrowRight, Sparkles, ChevronDown, Shield, Truck } from "lucide-react";
 import { Badge } from "@/components/brand/Badge";
 import { FloatingIcons } from "@/components/brand/FloatingIcons";
 import { product, reviews } from "@/lib/productData";
