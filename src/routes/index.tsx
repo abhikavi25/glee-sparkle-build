@@ -354,7 +354,8 @@ function Home() {
       </section>
 
       {/* REVIEWS */}
-      <section className="bg-glee-vanilla/40 py-20">
+      <section className="bg-gradient-to-br from-glee-green/8 via-glee-cream to-glee-blue/10 py-20">
+
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <h2 className="text-center font-display text-4xl text-glee-choco md:text-5xl">
             Don't Take Our Word for It <span aria-hidden>💬</span>
