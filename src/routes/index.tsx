@@ -310,7 +310,9 @@ function Home() {
       </section>
 
       {/* GLEE DIFFERENCE */}
-      <section className="bg-glee-cream py-20">
+      <section className="relative bg-glee-cream py-20">
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-glee-green/40 to-transparent" />
+
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <h2 className="text-center font-display text-4xl text-glee-choco md:text-5xl">
             Nutrition That's Built Different <span aria-hidden>💪</span>
