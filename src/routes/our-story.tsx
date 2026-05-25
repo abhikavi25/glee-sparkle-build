@@ -167,7 +167,7 @@ function OurStory() {
       </section>
 
       {/* Meet the Glee Gang */}
-      <section className="relative overflow-hidden bg-glee-vanilla/50 py-16">
+      <section className="relative overflow-hidden bg-gradient-to-br from-glee-green/10 via-glee-cream to-glee-blue/12 py-16">
         <div className="mx-auto max-w-6xl px-6 md:px-8">
           <div className="text-center">
             <span className="font-hand text-2xl text-glee-coral">Say hi to</span>
