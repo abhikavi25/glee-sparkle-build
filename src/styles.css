@@ -87,11 +87,6 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
   }
-  @keyframes breathe {
-    0%, 100% { transform: scale(1); opacity: 0.7; }
-    50% { transform: scale(1.05); opacity: 0.85; }
-  }
-  --animate-breathe: breathe 5s ease-in-out infinite;
 }
 
 :root {
@@ -169,11 +164,6 @@
     background-size: 200% 100%;
     animation: shimmer 2.5s linear infinite;
   }
-  .marquee-fade {
-    mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
-  }
-
 
   .bg-confetti-dots {
     background-image:

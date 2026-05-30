@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Star, Check, ChevronRight, Truck } from "lucide-react";
 import { product, reviews, faqs } from "@/lib/productData";
 import { Badge } from "@/components/brand/Badge";
 import { PriceBlock } from "@/components/product/PriceBlock";
 import { CouponInput } from "@/components/product/CouponInput";
 import { AddToCartBar } from "@/components/product/AddToCartBar";
-import { useCart } from "@/components/cart/CartProvider";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
 
@@ -42,11 +41,6 @@ const faqSchema = {
 };
 
 export const Route = createFileRoute("/products/choco-vanilla-nutrition-drink")({
-  validateSearch: (search: Record<string, unknown>): { qty?: number } => {
-    const raw = Number(search.qty);
-    const qty = Number.isFinite(raw) && raw >= 1 && raw <= 10 ? Math.floor(raw) : undefined;
-    return qty ? { qty } : {};
-  },
   head: () => ({
     meta: [
       { title: "Glee Kids Choco Vanilla Millet Nutrition Drink 400g | No Sugar, No Maltodextrin | GleeNutrico" },
@@ -67,17 +61,6 @@ export const Route = createFileRoute("/products/choco-vanilla-nutrition-drink")(
 function ProductPage() {
   const [activeImg, setActiveImg] = useState(0);
   const gallery = [product.image, product.image, product.image, product.image];
-  const { qty: qtyParam } = Route.useSearch();
-  const { setQty, setMethod, setCoupon } = useCart();
-
-  useEffect(() => {
-    if (qtyParam) {
-      setQty(qtyParam);
-      setMethod("prepaid");
-      setCoupon("WITHLOVE");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [qtyParam]);
 
   return (
     <>

@@ -35,9 +35,6 @@ export function Header() {
           : "bg-glee-cream/80 backdrop-blur-sm",
       )}
     >
-      <div className="bg-gradient-to-r from-glee-green-deep via-glee-green to-glee-blue-deep text-white text-center text-[11px] md:text-xs font-sub font-extrabold tracking-wide py-1.5 px-3">
-        ⚡ FLAT ₹200 OFF on 3-packs · Code <span className="font-hand text-base text-glee-sunshine">WITHLOVE</span> auto-applied · Free shipping ₹499+
-      </div>
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-8">
         <Link to="/" className="flex items-center gap-2 shrink-0">
           <Logo className="h-10 w-auto md:h-11" />

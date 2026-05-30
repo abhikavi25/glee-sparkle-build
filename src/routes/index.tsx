@@ -1,6 +1,5 @@
-import { useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Star, Check, X, ArrowRight, Sparkles, ChevronDown, Shield, Truck } from "lucide-react";
+import { Star, Check, X, ArrowRight, Sparkles } from "lucide-react";
 import { Badge } from "@/components/brand/Badge";
 import { FloatingIcons } from "@/components/brand/FloatingIcons";
 import { product, reviews } from "@/lib/productData";
@@ -28,77 +27,44 @@ const trustItems = [
 ];
 
 function Home() {
-  const productWrapRef = useRef<HTMLDivElement>(null);
-
-  const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = productWrapRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.setProperty("--rx", `${(-y * 6).toFixed(2)}deg`);
-    el.style.setProperty("--ry", `${(x * 6).toFixed(2)}deg`);
-  };
-  const resetTilt = () => {
-    const el = productWrapRef.current;
-    if (!el) return;
-    el.style.setProperty("--rx", "0deg");
-    el.style.setProperty("--ry", "0deg");
-  };
-
   return (
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-glee-cream bg-confetti-dots">
         <FloatingIcons />
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 py-16 md:grid-cols-2 md:px-8 md:py-24">
-          <div className="relative space-y-6">
+          <div className="space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-glee-green/30 bg-white px-3 py-1 font-hand text-base text-glee-green-deep">
               <Sparkles className="h-4 w-4" /> Millet-powered, kid-approved
             </span>
-            <h1 className="font-display text-5xl leading-[0.95] text-glee-choco md:text-6xl">
+            <h1 className="font-display text-5xl leading-[0.95] text-glee-choco md:text-7xl">
               No Sugar. <br />
               No Junk. <br />
-              <span className="text-glee-green-deep">Just Pure Glee.</span>
+              <span className="text-glee-green-deep">Just Pure Glee.</span>{" "}
+              <span aria-hidden>🌾</span>
             </h1>
-            {/* floating wheat sticker — placed, not pasted */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -top-2 right-2 hidden md:inline-flex h-12 w-12 items-center justify-center rounded-full bg-glee-sunshine text-2xl shadow-lg rotate-[10deg] animate-bob-slow"
-            >
-              🌾
-            </span>
             <p className="max-w-lg text-lg text-glee-muted md:text-xl">
               India's millet-powered nutrition drink for kids aged 3–16.
               Zero refined sugar. Zero maltodextrin. Zero guilt.
               Just the good stuff — and flavours kids actually beg for.
             </p>
-
-            {/* CTA cluster: one hero button + quiet trust microcopy */}
-            <div className="space-y-3 pt-1">
+            <div className="flex flex-wrap items-center gap-3">
               <Link
                 to="/products/choco-vanilla-nutrition-drink"
-                className="relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-glee-coral px-8 py-4 font-sub text-base font-extrabold text-white shadow-[0_14px_34px_-12px_rgba(255,107,107,0.7)] transition-transform hover:scale-[1.04]"
+                className="relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-glee-coral px-7 py-4 font-sub text-base font-extrabold text-white shadow-[0_14px_34px_-12px_rgba(255,107,107,0.7)] transition-transform hover:scale-[1.04]"
               >
                 <span className="relative z-10 inline-flex items-center gap-2">
-                  Grab Yours — From ₹549 <ArrowRight className="h-4 w-4" />
+                  Grab Yours — ₹549 <ArrowRight className="h-4 w-4" />
                 </span>
                 <span className="shimmer-cta absolute inset-0" aria-hidden />
               </Link>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 font-sub text-xs font-bold text-glee-muted">
-                <span className="inline-flex items-center gap-1.5">
-                  <Truck className="h-3.5 w-3.5 text-glee-green-deep" /> Free shipping ₹499+
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Shield className="h-3.5 w-3.5 text-glee-green-deep" /> 100% refund if kid hates it
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Star className="h-3.5 w-3.5 fill-glee-sunshine text-glee-sunshine" />
-                  4.9 · 3,000+ parents
-                </span>
-              </div>
+              <a
+                href="#glee-deal"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-glee-choco px-6 py-3.5 font-sub font-extrabold text-glee-choco transition hover:bg-glee-choco hover:text-glee-cream"
+              >
+                Save ₹50 with Prepaid ↓
+              </a>
             </div>
-
             <div className="flex flex-wrap gap-2 pt-2">
               <Badge tone="green" icon="🌾">Millet-Powered</Badge>
               <Badge tone="coral" icon="🚫">No Sugar</Badge>
@@ -108,17 +74,9 @@ function Home() {
           </div>
 
           {/* Hero product */}
-          <div
-            ref={productWrapRef}
-            onMouseMove={handleTilt}
-            onMouseLeave={resetTilt}
-            className="relative [perspective:1200px]"
-          >
-            <div className="absolute inset-0 -z-10 mx-auto h-[88%] w-[88%] rounded-full bg-glee-vanilla blur-2xl opacity-70 animate-breathe" />
-            <div
-              className="relative mx-auto max-w-md transition-transform duration-200 ease-out will-change-transform"
-              style={{ transform: "rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))" }}
-            >
+          <div className="relative">
+            <div className="absolute inset-0 -z-10 mx-auto h-[88%] w-[88%] rounded-full bg-glee-vanilla blur-2xl opacity-70" />
+            <div className="relative mx-auto max-w-md">
               <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-br from-glee-blue/30 via-glee-green/20 to-glee-sunshine/30 blur-2xl" />
               <img
                 src={product.image}
@@ -128,12 +86,12 @@ function Home() {
                 className="relative animate-float drop-shadow-[0_30px_50px_rgba(42,26,14,0.25)]"
               />
             </div>
-            <div className="absolute -left-2 top-6 hidden md:block animate-bob-slow" style={{ animationDelay: "0.4s" }}>
+            <div className="absolute -left-2 top-6 hidden md:block">
               <span className="rounded-full bg-glee-sunshine px-4 py-2 font-hand text-2xl text-glee-choco shadow-lg rotate-[-8deg] inline-block">
                 No junk. Seriously.
               </span>
             </div>
-            <div className="absolute -right-2 bottom-8 hidden md:block animate-bob-slow" style={{ animationDelay: "1.1s" }}>
+            <div className="absolute -right-2 bottom-8 hidden md:block">
               <span className="rounded-full bg-white px-4 py-2 font-sub text-sm font-extrabold text-glee-green-deep shadow-lg rotate-[6deg] inline-block">
                 ⭐ 4.9 from 127 parents
               </span>
@@ -141,15 +99,9 @@ function Home() {
           </div>
         </div>
 
-        {/* Scroll cue */}
-        <div className="relative flex flex-col items-center pb-6 -mt-4">
-          <span className="font-hand text-xl text-glee-muted">scroll to meet the millet</span>
-          <ChevronDown className="h-5 w-5 text-glee-green-deep animate-bounce-soft" />
-        </div>
-
         {/* Trust ticker */}
-        <div className="relative border-y border-glee-vanilla bg-white/60 py-3 overflow-hidden marquee-fade">
-          <div className="flex gap-10 whitespace-nowrap" style={{ animation: "marquee 45s linear infinite" }}>
+        <div className="relative border-y border-glee-vanilla bg-white/60 py-3 overflow-hidden">
+          <div className="flex animate-marquee gap-10 whitespace-nowrap">
             {[...trustItems, ...trustItems].map((t, i) => (
               <span key={i} className="inline-flex items-center gap-2 font-sub text-sm font-bold text-glee-choco">
                 {t}
@@ -160,10 +112,8 @@ function Home() {
         </div>
       </section>
 
-
       {/* WHY GLEE - story + comparison */}
-      <section className="bg-gradient-to-b from-glee-cream via-glee-green/5 to-glee-cream py-20">
-
+      <section className="bg-glee-cream py-20">
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <div className="mb-12 max-w-3xl">
             <span className="font-hand text-2xl text-glee-coral">Real talk:</span>
@@ -175,7 +125,7 @@ function Home() {
           <div className="grid gap-8 md:grid-cols-2">
             {/* Comparison */}
             <div className="overflow-hidden rounded-3xl border border-glee-vanilla bg-white shadow-[0_20px_60px_-30px_rgba(42,26,14,0.3)]">
-              <div className="bg-gradient-to-r from-glee-green-deep to-glee-blue-deep px-6 py-4">
+              <div className="bg-glee-choco px-6 py-4">
                 <div className="grid grid-cols-2 gap-4 font-sub text-sm font-extrabold text-glee-cream">
                   <span>What most brands hide 😬</span>
                   <span>What Glee says no to ✅</span>
@@ -232,8 +182,7 @@ function Home() {
       </section>
 
       {/* PRODUCT SPOTLIGHT */}
-      <section className="bg-gradient-to-br from-glee-blue/10 via-glee-cream to-glee-green/10 py-20">
-
+      <section className="bg-glee-vanilla/40 py-20">
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <h2 className="text-center font-display text-4xl text-glee-choco md:text-5xl">
             Meet Your New Favourite. <span aria-hidden>🍫✨</span>
@@ -310,9 +259,7 @@ function Home() {
       </section>
 
       {/* GLEE DIFFERENCE */}
-      <section className="relative bg-glee-cream py-20">
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-glee-green/40 to-transparent" />
-
+      <section className="bg-glee-cream py-20">
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <h2 className="text-center font-display text-4xl text-glee-choco md:text-5xl">
             Nutrition That's Built Different <span aria-hidden>💪</span>
@@ -354,8 +301,7 @@ function Home() {
       </section>
 
       {/* REVIEWS */}
-      <section className="bg-gradient-to-br from-glee-green/8 via-glee-cream to-glee-blue/10 py-20">
-
+      <section className="bg-glee-vanilla/40 py-20">
         <div className="mx-auto max-w-7xl px-6 md:px-8">
           <h2 className="text-center font-display text-4xl text-glee-choco md:text-5xl">
             Don't Take Our Word for It <span aria-hidden>💬</span>
@@ -377,57 +323,39 @@ function Home() {
         </div>
       </section>
 
-      {/* GLEE DEAL banner — Bundle tiles */}
+      {/* GLEE DEAL banner */}
       <section id="glee-deal" className="relative overflow-hidden py-20" style={{ background: "linear-gradient(135deg, #FFD93D 0%, #F5E6C3 100%)" }}>
         <div className="absolute inset-0 bg-confetti-dots opacity-60" aria-hidden />
         <div className="relative mx-auto max-w-5xl px-6 text-center md:px-8">
-          <span className="font-hand text-2xl text-glee-coral">3 out of 4 parents start with the 2-pack</span>
-          <h2 className="mt-1 font-display text-4xl text-glee-choco md:text-6xl">
-            Pick Your Glee Bundle <span aria-hidden>💛</span>
+          <h2 className="font-display text-4xl text-glee-choco md:text-6xl">
+            More Glee, More Savings. <span aria-hidden>💛</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl font-sub text-lg font-bold text-glee-choco/80">
-            Code <span className="font-hand text-xl text-glee-coral">WITHLOVE</span> is auto-applied. The more you stack, the more you save.
+            Stack up and unlock your special discount:
           </p>
-
-          <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-3">
-            {[
-              { qty: 1, total: 549, save: 50, label: "Try It", per: 34, tag: null },
-              { qty: 2, total: 998, save: 200, label: "Most Loved", per: 31, tag: "POPULAR", popular: true },
-              { qty: 3, total: 1447, save: 350, label: "Best Value", per: 30, tag: "SAVE ₹350", best: true },
-            ].map((b) => (
-              <Link
-                key={b.qty}
-                to="/products/choco-vanilla-nutrition-drink"
-                search={{ qty: b.qty }}
-                className={`group relative block rounded-3xl border-2 bg-white p-6 text-left transition-transform hover:-translate-y-1 ${b.popular ? "border-glee-coral shadow-[0_20px_50px_-20px_rgba(255,107,107,0.5)] md:scale-[1.05]" : b.best ? "border-glee-green-deep" : "border-glee-choco/10"}`}
-              >
-                {b.tag && (
-                  <span className={`absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white ${b.popular ? "bg-glee-coral" : "bg-glee-green-deep"}`}>
-                    {b.tag}
-                  </span>
-                )}
-                <div className="font-hand text-xl text-glee-coral">{b.label}</div>
-                <div className="mt-1 font-display text-5xl text-glee-choco">{b.qty}<span className="font-sub text-base font-extrabold text-glee-muted"> Pack{b.qty > 1 ? "s" : ""}</span></div>
-                <div className="mt-3 flex items-baseline gap-2">
-                  <span className="font-display text-3xl text-glee-choco">₹{b.total}</span>
-                  <span className="font-sub text-sm text-glee-muted line-through">₹{599 * b.qty}</span>
-                </div>
-                <div className="mt-1 font-sub text-sm font-extrabold text-glee-green-deep">
-                  ₹{b.per}/glass · {b.qty * 16} glasses
-                </div>
-                <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-glee-coral/10 px-3 py-1 font-sub text-xs font-extrabold text-glee-coral">
-                  SAVE ₹{b.save}
-                </div>
-                <div className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-glee-choco px-4 py-2.5 font-sub text-sm font-extrabold text-glee-cream transition group-hover:bg-glee-coral">
-                  Grab This Bundle <ArrowRight className="h-4 w-4" />
-                </div>
-              </Link>
-            ))}
+          <div className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
+            <div className="rounded-3xl border-2 border-glee-choco/10 bg-white/80 p-6 backdrop-blur">
+              <div className="font-display text-6xl text-glee-coral">2️⃣</div>
+              <div className="mt-2 font-sub font-extrabold text-glee-choco">Buy 2 packs</div>
+              <div className="text-sm text-glee-muted">Apply code <span className="font-hand text-base text-glee-coral">WithLove</span></div>
+              <div className="mt-1 font-display text-2xl text-glee-green-deep">Save ₹100 extra</div>
+            </div>
+            <div className="rounded-3xl border-2 border-glee-choco/10 bg-white/80 p-6 backdrop-blur">
+              <div className="font-display text-6xl text-glee-coral">3️⃣</div>
+              <div className="mt-2 font-sub font-extrabold text-glee-choco">Buy 3 packs</div>
+              <div className="text-sm text-glee-muted">Apply code <span className="font-hand text-base text-glee-coral">WithLove</span></div>
+              <div className="mt-1 font-display text-2xl text-glee-green-deep">Save ₹200 extra</div>
+            </div>
           </div>
-
-          <p className="mt-8 font-sub text-sm font-bold text-glee-choco/70">
-            🔒 Secure checkout · 🚚 Free shipping ₹499+ · ↩️ Kid hates it? Full refund.
+          <p className="mt-6 font-sub font-bold text-glee-choco/80">
+            Plus ₹50 off on every prepaid order.
           </p>
+          <Link
+            to="/products/choco-vanilla-nutrition-drink"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-glee-coral px-8 py-4 font-sub text-base font-extrabold text-white shadow-[0_14px_34px_-12px_rgba(255,107,107,0.7)] transition-transform hover:scale-[1.04]"
+          >
+            Shop the Bundle <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 

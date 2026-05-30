@@ -1,54 +1,58 @@
-## Goal
-Make the hero feel like a top 1% D2C site — playful but composed, not clumsy. Fix three specific problems the user called out and layer in subtle "immersive" craft.
+# Plan: Bring the Our Story page to life
 
-## Problems to fix
+Goal: turn `/our-story` from a text-heavy page into a warm, playful, interactive scroll — with kids, friendly animals, and motion that matches the Glee brand (green/blue/cream + coral CTA, Fredoka display, organic shapes).
 
-1. **Floating black/yellow dot lands ON the headline.** The `FloatingIcons` component scatters SVGs at fixed % coords (e.g. sunshine dot at `top: 6% / left: 42%`, coral sparkle at `top: 40% / right: 20%`) which collide with the H1 text on this viewport. Reads as clutter, not whimsy.
-2. **CTA row looks clumsy.** "Grab Yours — ₹549" (filled coral) sitting next to "Save ₹50 with Prepaid ↓" (outlined choco) competes for attention — two equally-loud buttons, conflicting shapes, no hierarchy. The "↓" anchor link also points to an old `#glee-deal` section that no longer exists post-refactor.
-3. **No immersive layering.** Hero is one flat plane: text left, product right, dots floating. Lacks depth, parallax, or any reward for hovering/scrolling.
+## What we'll add
 
-## Plan
+### 1. New illustrated hero
+Generate one wide hero illustration: a small group of joyful Indian kids (3–10 yrs) holding mugs, with friendly cartoon animal sidekicks (a cow mascot, a squirrel with a millet sprig, a bunny) on a cream background with floating millet/cocoa/leaf confetti. Flat, rounded, brand-coloured (no photoreal).
 
-### 1. Re-stage the floating elements (`FloatingIcons.tsx`)
-- Move all icons to a **safe zone**: only along the outer 12% margins (top-edge corners, bottom edge, far left/right). Nothing crosses into the central column where the H1 / product image live.
-- Reduce count from 7 → 5 (less = more premium).
-- Soften: lower opacity to ~50%, slightly smaller, slower float (6–8s).
-- Add a subtle **parallax on mouse-move** (translate by 8–15px based on cursor) so the layer feels alive, not pasted on. Disabled on touch / `prefers-reduced-motion`.
+- File: `src/assets/our-story-hero.jpg` (16:9, premium tier for clean characters)
+- Replaces the plain text hero; headline + subhead overlay on the left, illustration on the right
+- Hero tin-style float animation on the lead kid + parallax-lite (CSS transform on scroll via existing IntersectionObserver pattern)
 
-### 2. Restructure the CTA cluster (`routes/index.tsx` hero)
-Replace the two-button row with a **primary CTA + supporting microcopy stack**:
+### 2. Animal "story guides" down the page
+Three small mascot illustrations generated as transparent PNGs, reused as section anchors:
+
+- `mascot-cow.png` — intro to "It Started With a Label" (cow = pure dairy-free milk alternative cue)
+- `mascot-squirrel.png` — next to "Why 'Glee'?" holding a millet sprig
+- `mascot-bunny.png` — next to the Values section, hopping
+
+Each mascot sits in the section margin, gently bobs (`animate-float`, staggered delays), and waves/tilts on hover (`hover:rotate-3 hover:scale-110 transition`).
+
+### 3. Interactive timeline strip (new section)
+Between the story and Values: a horizontal "Our journey" timeline with 4 milestone cards (The Question → The Kitchen → The First Sip → The Promise). Each card has a small inline SVG icon (label, mortar+pestle, mug, heart), reveals on scroll with `fade-in-up`, and tilts slightly on hover. Mobile = horizontal snap-scroll carousel.
+
+### 4. "Meet the Glee Gang" mascot row (new section)
+Before the CTA: a friendly row introducing the 3 animal mascots with one-line personalities ("Moo the Cow — believes in clean labels", etc.). Cards lift on hover. Adds personality without more long-form copy.
+
+### 5. Kid-quote sticker callouts
+Replace two plain paragraphs with handwritten-style speech bubbles ("Tastes like chocolate, Mumma!" — Aarav, 6) using the existing Caveat font + a coral/blue sticker shape with a subtle wiggle on hover.
+
+### 6. Motion polish (no new deps)
+Reuse existing Tailwind keyframes (`float`, `fade-in-up`, `marquee`) plus add two tiny ones in `src/styles.css`:
+- `wiggle` (±3deg, 2.5s) for stickers/mascots on hover
+- `bob-slow` (translateY 6px, 5s) staggered across mascots
+
+All scroll reveals use a 30-line IntersectionObserver hook — no Framer Motion, keeps Lighthouse ≥ 90.
+
+## Files touched
 
 ```text
-[ Grab Yours — From ₹549 → ]      ← single hero CTA, coral, shimmer
-  ✓ Free shipping ₹499+   ✓ 100% refund if kid hates it
-        ⭐ 4.9 · 3,000+ parents trust Glee
+src/routes/our-story.tsx           rebuilt sections + new hero/timeline/gang
+src/styles.css                     add wiggle + bob-slow keyframes
+src/components/brand/Mascot.tsx    NEW — small img wrapper w/ float + hover tilt
+src/hooks/useReveal.ts             NEW (if not present) — IO-based reveal hook
+src/assets/our-story-hero.jpg      NEW — generated (premium, 16:9)
+src/assets/mascot-cow.png          NEW — generated (transparent)
+src/assets/mascot-squirrel.png     NEW — generated (transparent)
+src/assets/mascot-bunny.png        NEW — generated (transparent)
 ```
 
-- Drop the outlined "Save ₹50" button entirely — that nudge already lives on the product page (the "Save ₹50 with prepaid" toggle).
-- Replace with **three tiny inline trust chips** under the CTA (free shipping, refund, rating) — quieter, builds confidence without competing visually.
-- Remove the dead `#glee-deal` anchor.
-
-### 3. Tighten the headline rhythm
-- Current H1 stacks "No Sugar. / No Junk. / Just Pure Glee. 🌾" with the emoji on the same line — looks unbalanced.
-- Move 🌾 emoji to a small floating sticker beside the headline (rotated, on a sunshine chip) — feels intentional, not tacked on.
-- Reduce H1 size slightly on this viewport (md:text-7xl → md:text-6xl) so it breathes against the product image.
-
-### 4. Add immersive depth (subtle, premium)
-- **Product image**: add a soft mouse-tracked tilt (max 6° rotateY/rotateX) using CSS only — feels tactile, no library needed.
-- **Vanilla blob behind product**: animate it with a slow scale pulse (4s ease-in-out) so the backdrop breathes.
-- **Hand-written stickers** ("No junk. Seriously." / "⭐ 4.9 from 127 parents") — currently `hidden md:block` and static. Add a gentle bob with staggered delays so they feel placed by hand.
-- **Scroll-cue**: tiny animated chevron + "scroll to meet the millet" hand-script at the bottom of the hero — invites exploration.
-
-### 5. Trust ticker polish
-- Add fade-mask gradients on the left/right edges so items dissolve instead of hard-clipping.
-- Slow it down (30s → 45s) — calmer, more premium.
-
-## Files to edit
-- `src/components/brand/FloatingIcons.tsx` — reposition to margins, add parallax, reduce count
-- `src/routes/index.tsx` — restructure hero CTA cluster, headline, scroll cue, ticker mask
-- `src/styles.css` — add `breathe` keyframe + edge-fade utility if needed
+No changes to other pages, no backend, no new dependencies.
 
 ## Out of scope
-- Product page changes
-- Mascot section / Our Story (already polished last round)
-- Adding new images
+
+- Redesigning Home / Product / Blog
+- Real animation library (Framer/Lottie)
+- Adding new copy beyond mascot one-liners and milestone labels

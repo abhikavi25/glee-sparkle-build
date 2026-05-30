@@ -4,7 +4,7 @@ import { Logo } from "@/components/brand/Logo";
 
 export function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-glee-green-deep via-glee-choco to-glee-blue-deep text-glee-cream">
+    <footer className="bg-glee-choco text-glee-cream">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-3 md:px-8">
         <div>
           <Logo variant="onDark" className="h-10 w-auto" />
