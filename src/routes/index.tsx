@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Star, Check, X, ArrowRight, Sparkles } from "lucide-react";
+import { Star, ArrowRight, Sparkles } from "lucide-react";
 import { Badge } from "@/components/brand/Badge";
 import { FloatingIcons } from "@/components/brand/FloatingIcons";
+import { NoJunkVideo } from "@/components/home/NoJunkVideo";
+import { ImpactStrip } from "@/components/home/ImpactStrip";
 import { product, reviews } from "@/lib/productData";
 import { posts } from "@/lib/blogData";
 
@@ -58,12 +60,6 @@ function Home() {
                 </span>
                 <span className="shimmer-cta absolute inset-0" aria-hidden />
               </Link>
-              <a
-                href="#glee-deal"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-glee-choco px-6 py-3.5 font-sub font-extrabold text-glee-choco transition hover:bg-glee-choco hover:text-glee-cream"
-              >
-                Save ₹50 with Prepaid ↓
-              </a>
             </div>
             <div className="flex flex-wrap gap-2 pt-2">
               <Badge tone="green" icon="🌾">Millet-Powered</Badge>

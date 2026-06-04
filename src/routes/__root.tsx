@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import appCss from "../styles.css?url";
 import { Header } from "@/components/layout/Header";
+import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Footer } from "@/components/layout/Footer";
 import { CartProvider } from "@/components/cart/CartProvider";
 import { CartDrawer } from "@/components/cart/CartDrawer";
@@ -75,6 +76,7 @@ function RootComponent() {
   return (
     <CartProvider>
       <div className="flex min-h-screen flex-col bg-glee-cream">
+        <AnnouncementBar />
         <Header />
         <main className="flex-1">
           <Outlet />
