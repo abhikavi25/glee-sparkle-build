@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Star, ArrowRight, Sparkles } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/brand/Badge";
 import { FloatingIcons } from "@/components/brand/FloatingIcons";
-import { NoJunkVideo } from "@/components/home/NoJunkVideo";
 import { ImpactStrip } from "@/components/home/ImpactStrip";
 import { product, reviews } from "@/lib/productData";
 import { posts } from "@/lib/blogData";
