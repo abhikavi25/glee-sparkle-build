@@ -27,11 +27,6 @@ const milestones = [
   { icon: Heart, title: "The Promise", body: "Never sugar. Never maltodextrin. Never compromise.", tone: "bg-glee-coral/15 border-glee-coral/40" },
 ];
 
-const gang = [
-  { img: cowImg, name: "Moo", role: "Clean-Label Champion", line: "If she can't read it, it's not in the cup.", color: "bg-glee-green/10" },
-  { img: squirrelImg, name: "Pip", role: "Millet Keeper", line: "Carries an ancient grain everywhere she goes.", color: "bg-glee-sunshine/20" },
-  { img: bunnyImg, name: "Bo", role: "Energy Officer", line: "Hops on real nutrition, not refined sugar.", color: "bg-glee-blue/15" },
-];
 
 function OurStory() {
   return (
@@ -166,35 +161,6 @@ function OurStory() {
         </div>
       </section>
 
-      {/* Meet the Glee Gang */}
-      <section className="relative overflow-hidden bg-glee-vanilla/50 py-16">
-        <div className="mx-auto max-w-6xl px-6 md:px-8">
-          <div className="text-center">
-            <span className="font-hand text-2xl text-glee-coral">Say hi to</span>
-            <h2 className="mt-1 font-display text-4xl text-glee-choco md:text-5xl">Meet the Glee Gang</h2>
-            <p className="mx-auto mt-3 max-w-xl text-glee-muted">
-              Our tiny team of furry sidekicks who keep us honest, joyful, and millet-obsessed.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {gang.map((g, i) => (
-              <div
-                key={g.name}
-                className={`group relative rounded-3xl ${g.color} border-2 border-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
-              >
-                <div className="mx-auto -mt-16 flex h-32 w-32 items-center justify-center">
-                  <Mascot src={g.img} alt={`${g.name} the Glee Kids mascot`} size={128} delay={i * 300} />
-                </div>
-                <h3 className="mt-4 font-display text-2xl text-glee-choco">{g.name}</h3>
-                <div className="font-sub text-sm font-extrabold uppercase tracking-wide text-glee-green-deep">
-                  {g.role}
-                </div>
-                <p className="mt-3 font-hand text-xl text-glee-choco">"{g.line}"</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="bg-glee-cream py-20">

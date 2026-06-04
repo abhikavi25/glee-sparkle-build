@@ -7,6 +7,7 @@ import { PriceBlock } from "@/components/product/PriceBlock";
 import { CouponInput } from "@/components/product/CouponInput";
 import { AddToCartBar } from "@/components/product/AddToCartBar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Instructions } from "@/components/product/Instructions";
 import { toast } from "sonner";
 
 const productSchema = {
@@ -137,6 +138,9 @@ function ProductPage() {
           </div>
         </div>
       </section>
+
+      {/* HOW TO PREPARE */}
+      <Instructions />
 
       {/* TABS */}
       <section className="bg-glee-vanilla/30 py-16">
