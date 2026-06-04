@@ -108,74 +108,8 @@ function Home() {
         </div>
       </section>
 
-      {/* WHY GLEE - story + comparison */}
-      <section className="bg-glee-cream py-20">
-        <div className="mx-auto max-w-7xl px-6 md:px-8">
-          <div className="mb-12 max-w-3xl">
-            <span className="font-hand text-2xl text-glee-coral">Real talk:</span>
-            <h2 className="mt-1 font-display text-4xl leading-tight text-glee-choco md:text-5xl">
-              What's Actually in Your Kid's Health Drink?
-            </h2>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-2">
-            {/* Comparison */}
-            <div className="overflow-hidden rounded-3xl border border-glee-vanilla bg-white shadow-[0_20px_60px_-30px_rgba(42,26,14,0.3)]">
-              <div className="bg-glee-choco px-6 py-4">
-                <div className="grid grid-cols-2 gap-4 font-sub text-sm font-extrabold text-glee-cream">
-                  <span>What most brands hide 😬</span>
-                  <span>What Glee says no to ✅</span>
-                </div>
-              </div>
-              {[
-                "Refined Sugar",
-                "Maltodextrin",
-                "Artificial Flavours",
-                "Preservatives",
-              ].map((item, i) => (
-                <div
-                  key={item}
-                  className={`grid grid-cols-2 gap-4 px-6 py-4 font-sub ${i % 2 === 0 ? "bg-glee-cream" : "bg-glee-vanilla/40"}`}
-                >
-                  <span className="font-bold text-glee-choco">{item}</span>
-                  <span className="inline-flex items-center gap-2 font-extrabold text-glee-coral">
-                    <X className="h-4 w-4" /> Never
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Story */}
-            <div className="space-y-4">
-              <h3 className="font-display text-3xl text-glee-choco">
-                We Read the Labels So You Don't Have To.
-              </h3>
-              <p className="text-glee-muted">
-                Every parent's been there — flipping over a "healthy" kids drink, squinting at ingredients, Googling what maltodextrin even means.
-              </p>
-              <p className="text-glee-muted">
-                Spoiler: it's ultra-processed filler. And most "health" drinks are loaded with it. Along with refined sugar dressed up as "sucrose" or "glucose syrup."
-              </p>
-              <p className="font-sub text-lg font-bold text-glee-choco">
-                At Glee, we said no to all of it.
-              </p>
-              <p className="text-glee-muted">
-                We went back to what actually works — ancient Indian supergrains like millets, combined with the chocolate-vanilla flavours your kids actually want. No tricks. No filler. Just real nutrition that slaps.
-              </p>
-              <p className="font-hand text-2xl text-glee-green-deep">
-                Because your kid deserves better than "not bad for them."
-                They deserve Glee.
-              </p>
-              <Link
-                to="/products/choco-vanilla-nutrition-drink"
-                className="inline-flex items-center gap-2 font-sub font-extrabold text-glee-coral underline-offset-4 hover:underline"
-              >
-                See What's Inside <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* WHY GLEE - background video story */}
+      <NoJunkVideo />
 
       {/* PRODUCT SPOTLIGHT */}
       <section className="bg-glee-vanilla/40 py-20">
