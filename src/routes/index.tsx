@@ -230,6 +230,9 @@ function Home() {
         </div>
       </section>
 
+      {/* IMPACT */}
+      <ImpactStrip />
+
       {/* REVIEWS */}
       <section className="bg-glee-vanilla/40 py-20">
         <div className="mx-auto max-w-7xl px-6 md:px-8">
