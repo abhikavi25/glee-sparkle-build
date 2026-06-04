@@ -248,6 +248,64 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* IMPACT */}
+      <ImpactStrip />
+
+      {/* REVIEWS */}
+      <section className="bg-glee-vanilla/40 py-20">
+        <div className="mx-auto max-w-7xl px-6 md:px-8">
+          <h2 className="text-center font-display text-4xl text-glee-choco md:text-5xl">
+            Loved by Parents. Trusted by Families. <span aria-hidden>💬</span>
+          </h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {reviews.map((r) => (
+              <article key={r.name} className="rounded-3xl bg-white p-6 shadow-[0_20px_50px_-30px_rgba(42,26,14,0.3)] transition-transform hover:-translate-y-1">
+                <div className="flex gap-0.5 text-glee-sunshine">
+                  {Array.from({ length: r.rating }).map((_, i) => (
+                    <Star key={i} className="h-5 w-5 fill-current" />
+                  ))}
+                </div>
+                <p className="mt-3 text-glee-choco">"{r.text}"</p>
+                <div className="mt-4 font-sub text-sm font-extrabold text-glee-choco">— {r.name}, {r.location}</div>
+                <div className="text-xs text-glee-muted">{r.tag}</div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BLOG TEASER */}
+      <section className="bg-glee-cream py-20">
+        <div className="mx-auto max-w-7xl px-6 md:px-8">
+          <div className="flex items-end justify-between">
+            <h2 className="font-display text-4xl text-glee-choco md:text-5xl">
+              From The Glee Kitchen <span aria-hidden>📖</span>
+            </h2>
+            <Link to="/blog" className="hidden font-sub font-extrabold text-glee-green-deep hover:underline md:inline-flex items-center gap-1">
+              All articles <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {posts.slice(0, 3).map((p) => (
+              <Link key={p.slug} to="/blog" className="group block overflow-hidden rounded-3xl bg-white shadow-[0_20px_50px_-30px_rgba(42,26,14,0.25)] transition-transform hover:-translate-y-1">
+                <div className="aspect-[16/10] overflow-hidden bg-glee-vanilla">
+                  <img src={p.image} alt={p.title} loading="lazy" className="h-full w-full object-cover transition-transform group-hover:scale-105" />
+                </div>
+                <div className="p-5">
+                  <Badge tone="green">{p.category}</Badge>
+                  <h3 className="mt-3 font-display text-xl text-glee-choco">{p.title}</h3>
+                  <p className="mt-2 line-clamp-2 text-sm text-glee-muted">{p.excerpt}</p>
+                  <div className="mt-3 flex items-center justify-between text-xs text-glee-muted">
+                    <span>{p.readTime}</span>
+                    <span className="inline-flex items-center gap-1 font-sub font-extrabold text-glee-coral">Read more <ArrowRight className="h-3 w-3" /></span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
